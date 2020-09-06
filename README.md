@@ -13,3 +13,5 @@ Script to claim Vexanium reward
 ## To check if the script is running or not
 
 	ps -ef | grep auto-claim-rewards
+
+root  1501     1  0 12:38 ?        00:00:00 /bin/bash auto-claim-rewards.ds
