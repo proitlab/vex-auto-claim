@@ -1,0 +1,57 @@
+#!/bin/bash          
+
+# auto-claim-rewards, a simple bash script to claim block producer & voting rewards 
+# on VEXANIUM blockchain.
+# 
+# By proitidgovex, 2020
+
+# Change here to your working directory
+WORKDIR=/root
+
+# Change here to your cleos executable 
+# Assumption your cleos file is in WORKDIR directory
+EXECUTABLE=${WORKDIR}/cleos
+
+# Change this to your BP wallet name
+WALLET_NAME="proitidgovex"
+
+# Change this to your BP wallet password
+WALLET_PWD="YOURWALLETPASSWORD"
+
+# Mostly you don't neet to change below variables
+LOGFILE="${WORKDIR}/auto-claim-rewards.log" 
+BROADCASTER_NODE="http://209.97.162.124:8080"
+BLOCKPRODUCER_NAME="proitidgovex"
+TEMPFILE=$(mktemp)
+DELAY=1441m
+
+claim() {
+    if [ ! -f "$LOGFILE" ]
+    then
+        touch $LOGFILE
+    fi
+    
+    echo $'\r\n' >>  $LOGFILE 2>&1
+    echo `date` " Start to claim the Rewards" > ${TEMPFILE} 2>&1
+    $EXECUTABLE wallet unlock -n $WALLET_NAME --password $WALLET_PWD > ${TEMPFILE} 2>&1
+    $EXECUTABLE --url $BROADCASTER_NODE system claimrewards $BLOCKPRODUCER_NAME > ${TEMPFILE} 2>&1
+    $EXECUTABLE wallet lock -n $WALLET_NAME > ${TEMPFILE} 2>&1
+}
+
+
+while true
+do
+
+	# Call claim function
+	claim
+
+	# Append TEMPFILE to LOGFILE
+	cat ${TEMPFILE}	>>	${LOGFILE}
+
+	rm -fr ${TEMPFILE}
+
+	# It will sleep for 1441 minutes = 24 hours + 1 minute
+	echo `date` "Done claim rewards. Sleeping time for ${DELAY} minutes"	>> ${LOGFILE}
+	sleep ${DELAY}
+
+done
