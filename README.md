@@ -17,3 +17,7 @@ Script to claim Vexanium reward
 ### The output will look like this
 
 	vex  1501     1  0 12:38 ?        00:00:00 /bin/bash auto-claim-rewards.ds
+
+## Run check-auto-claim.ds from crontab every minute
+
+	* *	* * *	root	/root/check-auto-claim.ds
