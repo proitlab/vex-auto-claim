@@ -38,6 +38,7 @@ claim() {
     $EXECUTABLE wallet lock -n $WALLET_NAME > ${TEMPFILE} 2>&1
 }
 
+touch ${LOGFILE}
 
 echo `date` >> ${LOGFILE}
 
