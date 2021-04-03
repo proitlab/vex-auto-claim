@@ -13,7 +13,7 @@ WORKDIR=/root
 EXECUTABLE=${WORKDIR}/cleos
 
 # Change this to your BP wallet name
-WALLET_NAME="proitidgovex"
+WALLET_NAME="YOURWALETNAME"
 
 # Change this to your BP wallet password
 WALLET_PWD="YOURWALLETPASSWORD"
@@ -21,9 +21,9 @@ WALLET_PWD="YOURWALLETPASSWORD"
 # Mostly you don't neet to change below variables
 LOGFILE="${WORKDIR}/auto-claim-rewards.log" 
 BROADCASTER_NODE="http://209.97.162.124:8080"
-BLOCKPRODUCER_NAME="proitidgovex"
+BLOCKPRODUCER_NAME="YOURBPNAMEISHERE"
 TEMPFILE=$(mktemp)
-DELAY=1441m
+DELAY=1m
 
 claim() {
     if [ ! -f "$LOGFILE" ]
@@ -39,19 +39,15 @@ claim() {
 }
 
 
-while true
-do
+echo `date` >> ${LOGFILE}
 
-	# Call claim function
-	claim
+# Call claim function
+claim
 
-	# Append TEMPFILE to LOGFILE
-	cat ${TEMPFILE}	>>	${LOGFILE}
+# Append TEMPFILE to LOGFILE
+cat ${TEMPFILE}	>>	${LOGFILE}
 
-	rm -fr ${TEMPFILE}
+rm -fr ${TEMPFILE}
 
-	# It will sleep for 1441 minutes = 24 hours + 1 minute
-	echo `date` "Done claim rewards. Sleeping time for ${DELAY} minutes"	>> ${LOGFILE}
-	sleep ${DELAY}
+echo `date` "Done claim rewards. Sleeping time for ${DELAY} minutes"	>> ${LOGFILE}
 
-done

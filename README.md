@@ -21,19 +21,10 @@ Script to claim Vexanium reward
 
 	chmod 755 auto-claim-rewards.ds
 
-
 ## To run the script auto-claim-rewards.ds
 
-	./auto-claim-rewards.ds &
-
-## To check if the script is running or not
-
-	ps -ef | grep auto-claim-rewards
-
-### The output will look like this
-
-	vex  1501     1  0 12:38 ?        00:00:00 /bin/bash auto-claim-rewards.ds
+	./auto-claim-rewards.ds
 
 ## Run check-auto-claim.ds from crontab every minute
 
-	* *	* * *	root	/root/check-auto-claim.ds
+	* *	* * *	root	/root/auto-claim-rewards.ds
